@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -34,24 +35,15 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const SidebarBar = () => {
+const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
-  // console.log("Theme mode:", theme.palette.mode);
-  // console.log("Primary 400:", colors.primary[400]);
-
   return (
     <Box
       sx={{
-        "& .ps-sidebar-container": {
-          backgroundColor:
-            theme.palette.mode === "light"
-              ? "rgba(249, 249, 249, 0.7)"
-              : `${colors.primary[400]} !important`,
-        },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
@@ -69,7 +61,7 @@ const SidebarBar = () => {
         },
       }}
     >
-      <Sidebar collapsed={isCollapsed}>
+      <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
@@ -88,7 +80,7 @@ const SidebarBar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINS
+                  ADMINIS
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -228,9 +220,9 @@ const SidebarBar = () => {
             />
           </Box>
         </Menu>
-      </Sidebar>
+      </ProSidebar>
     </Box>
   );
 };
 
-export default SidebarBar;
+export default Sidebar;
