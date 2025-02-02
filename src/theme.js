@@ -16,7 +16,6 @@ export const tokens = (mode) => ({
           800: "#292929",
           900: "#141414",
         },
-
         primary: {
           100: "#d0d1d5",
           200: "#a1a4ab",
@@ -124,7 +123,6 @@ export const tokens = (mode) => ({
 // mui theme settings
 export const themeSettings = (mode) => {
   const colors = tokens(mode);
-
   return {
     palette: {
       mode: mode,
