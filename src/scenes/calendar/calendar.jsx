@@ -112,13 +112,13 @@ const Calendar = () => {
             initialEvents={[
               {
                 id: "12315",
-                title: "All-day event",
-                date: "2022-09-14",
+                title: "Commit the project to GitHub",
+                date: "2025-03-14",
               },
               {
                 id: "5123",
-                title: "Timed event",
-                date: "2022-09-28",
+                title: "Deploy the project on Vercel or Netlify and add it to your portfolio and CV",
+                date: "2025-03-16",
               },
             ]}
           />

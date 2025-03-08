@@ -1,13 +1,15 @@
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useState, useMemo } from "react";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [searchText, setSearchText] = useState("");
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -52,14 +54,58 @@ const Contacts = () => {
     },
   ];
 
+  const filteredRows = useMemo(() => {
+    if (!searchText) {
+      return mockDataContacts;
+    }
+
+    const lowerCaseSearchText = searchText.toLowerCase();
+    return mockDataContacts.filter((row) =>
+      Object.values(row).some(
+        (value) =>
+          value && value.toString().toLowerCase().includes(lowerCaseSearchText)
+      )
+    );
+  }, [searchText, mockDataContacts]);
+
   return (
     <Box m="20px">
       <Header
         title="CONTACTS"
         subtitle="List of Contacts for Future Reference"
       />
+      <TextField
+        label="Search Contacts"
+        variant="outlined"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        sx={{
+          mb: "20px",
+          width: "30%",
+          "& .MuiInputLabel-root": {
+            // Target the label
+            color: theme.palette.mode === "dark" ? colors.grey[100] : "inherit", // Adjust color based on mode
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderColor:
+                theme.palette.mode === "dark" ? colors.grey[700] : undefined,
+            },
+            "&:hover fieldset": {
+              borderColor:
+                theme.palette.mode === "dark" ? colors.grey[500] : undefined,
+            },
+            "&.Mui-focused fieldset": {
+              borderColor:
+                theme.palette.mode === "dark"
+                  ? colors.greenAccent[500]
+                  : undefined,
+            },
+          },
+        }}
+      />
       <Box
-        m="40px 0 0 0"
+        m="0px 0 0 0"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -91,7 +137,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={filteredRows}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
