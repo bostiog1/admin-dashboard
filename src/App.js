@@ -15,13 +15,15 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-            <AppRoutes />
-          </main>
-        </div>
+        <Router>
+          <div className="app">
+            <Sidebar isSidebar={isSidebar} />
+            <main className="content">
+              <Topbar setIsSidebar={setIsSidebar} />
+              <AppRoutes />
+            </main>
+          </div>
+        </Router>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
